@@ -2,7 +2,6 @@ import argparse
 import time
 import telegram
 import os
-from dotenv import load_dotenv, find_dotenv
 import random
 
 
@@ -15,7 +14,8 @@ def get_images_from_folder(folder_path):
     return image_files
 
 
-def send_photos(seconds):
+def send_photos(chat_id, token, seconds):
+    bot = telegram.Bot(token)
     folder_path = "images"
     images = get_images_from_folder(folder_path)
     random_images = random.shuffle(images)
@@ -28,14 +28,10 @@ def send_photos(seconds):
 
 
 if __name__ == "__main__":
-    load_dotenv(find_dotenv())
-    chat_id = os.environ.get('CHAT_ID')
-    bot = telegram.Bot(os.environ.get('TELEGRAM_TOKEN'))
     parser = argparse.ArgumentParser(description='start telegram bot')
+    parser.add_argument('chat_id', help='Enter your chat_id')
+    parser.add_argument('token', help='Enter your Telegram token')
     parser.add_argument('seconds', type=int, help='Целочисленный аргумент', default=14400)
     args = parser.parse_args()
-    try:
-        send_photos(args.seconds)
-    except SyntaxError as e:
-        print(f"Произошла ошибка: {str(e)}")
+    send_photos(args.chat_id, args.token, args.seconds)
 

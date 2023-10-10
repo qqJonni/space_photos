@@ -3,14 +3,11 @@ import requests
 from urllib.parse import urlparse
 
 
-def upload_image(url, upload_to):
-    filename = os.path.join(upload_to, 'hubble.jpeg')
-    url = url
-    response = requests.get(url)
-    response.raise_for_status()
-
-    with open(filename, 'wb')as file:
-        file.write(response.content)
+def upload_image(url, upload_to, filename):
+    image_response = requests.get(url)
+    filename = os.path.join(upload_to, filename)
+    with open(filename, 'wb') as file:
+        file.write(image_response.content)
 
 
 def get_file_format(url):
