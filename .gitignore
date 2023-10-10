@@ -69,7 +69,7 @@ space_photos.py
 # Translations
 *.mo
 *.pot
-
+.idea
 # Sphinx documentation
 docs/_build/
 

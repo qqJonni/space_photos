@@ -15,9 +15,9 @@ def upload_epic_nasa_photo(token, upload_to):
     response = requests.get(url)
     response.raise_for_status()
     content = response.json()
-    combined_data = [(entry['date'], entry['image']) for entry in content if 'date' in entry and 'image' in entry]
+    original_content = [(entry['date'], entry['image']) for entry in content if 'date' in entry and 'image' in entry]
 
-    for url_number, (date, image) in enumerate(combined_data):
+    for url_number, (date, image) in enumerate(original_content):
         year = date[0:4]
         month = date[5:7]
         day = date[8:10]
