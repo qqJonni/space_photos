@@ -7,13 +7,13 @@ import os
 
 def upload_epic_nasa_photo(token, upload_to):
 
-    url = 'https://api.nasa.gov/EPIC/api/natural/images?api_key=Qx8bePy2Hxre3Rj1VoyfmmKfl3gu71A5nHnfgeHz'
+    url = 'https://api.nasa.gov/EPIC/api/natural/images'
     headers = {"Auth": token}
     payload = {
         'api_key': token
     }
 
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
     response.raise_for_status()
     content = response.json()
     original_links = [(entry['date'], entry['image']) for entry in content if 'date' in entry and 'image' in entry]
