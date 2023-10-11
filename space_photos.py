@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 
 def upload_image(url, upload_to, filename):
     image_response = requests.get(url)
+    image_response.raise_for_status()
     filename = os.path.join(upload_to, filename)
     with open(filename, 'wb') as file:
         file.write(image_response.content)
