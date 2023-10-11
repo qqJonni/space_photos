@@ -9,9 +9,6 @@ def upload_epic_nasa_photo(token, upload_to):
 
     url = 'https://api.nasa.gov/EPIC/api/natural/images'
     headers = {"Auth": token}
-    payload = {
-        'api_key': token
-    }
 
     response = requests.get(url, headers=headers)
     response.raise_for_status()
@@ -23,8 +20,7 @@ def upload_epic_nasa_photo(token, upload_to):
         month = date[5:7]
         day = date[8:10]
         image_url = f'https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png'
-        image_response = requests.get(image_url, headers=headers, params=payload)
-        upload_image(image_response.url, upload_to, f'epic_photo_{url_number}.png')
+        upload_image(image_url, upload_to, f'epic_photo_{url_number}.png')
 
 
 if __name__ == '__main__':
