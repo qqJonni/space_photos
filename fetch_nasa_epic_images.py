@@ -1,6 +1,8 @@
 import argparse
 import requests
 from space_photos import upload_image
+from dotenv import load_dotenv, find_dotenv
+import os
 
 
 def upload_epic_nasa_photo(token, upload_to):
@@ -26,8 +28,9 @@ def upload_epic_nasa_photo(token, upload_to):
 
 
 if __name__ == '__main__':
+    load_dotenv(find_dotenv())
+    token = os.environ.get('APOD_TOKEN')
     parser = argparse.ArgumentParser(description='Скачиваем фото spacex')
-    parser.add_argument('token', help='Enter your token')
     parser.add_argument('upload_to', help='Enter directory to upload')
     args = parser.parse_args()
-    upload_epic_nasa_photo(args.token, args.upload_to)
+    upload_epic_nasa_photo(token, args.upload_to)

@@ -3,6 +3,7 @@ import time
 import telegram
 import os
 import random
+from dotenv import load_dotenv, find_dotenv
 
 
 def get_images_from_folder(folder_path):
@@ -28,10 +29,11 @@ def send_photos(chat_id, token, seconds):
 
 
 if __name__ == "__main__":
+    load_dotenv(find_dotenv())
+    token = os.environ.get('TELEGRAM_TOKEN')
+    chat_id = os.environ.get('CHAT_ID')
     parser = argparse.ArgumentParser(description='start telegram bot')
-    parser.add_argument('chat_id', help='Enter your chat_id')
-    parser.add_argument('token', help='Enter your Telegram token')
     parser.add_argument('seconds', type=int, help='Целочисленный аргумент', default=14400)
     args = parser.parse_args()
-    send_photos(args.chat_id, args.token, args.seconds)
+    send_photos(chat_id, token, args.seconds)
 
